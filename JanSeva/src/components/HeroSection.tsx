@@ -1,8 +1,8 @@
-import React from 'react';
-import { Search, Mic, ArrowDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useLanguage } from '@/contexts/LanguageContext';
+import React from "react";
+import { Search, Mic, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface HeroSectionProps {
   onSearch: (query: string) => void;
@@ -10,45 +10,49 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
   const { t, language } = useLanguage();
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const translations = {
-    title: { 
-      en: 'Your Gateway to Government Benefits', 
-      hi: 'सरकारी लाभों का आपका द्वार', 
-      mr: 'सरकारी लाभांचे तुमचे प्रवेशद्वार' 
+    title: {
+      en: "Your Gateway to Government Benefits",
+      hi: "सरकारी लाभों का आपका द्वार",
+      mr: "सरकारी लाभांचे तुमचे प्रवेशद्वार",
     },
-    subtitle: { 
-      en: 'Find and apply for Maharashtra government schemes in your language', 
-      hi: 'महाराष्ट्र सरकार की योजनाओं को अपनी भाषा में खोजें और आवेदन करें', 
-      mr: 'महाराष्ट्र सरकारच्या योजना तुमच्या भाषेत शोधा आणि अर्ज करा' 
+    subtitle: {
+      en: "Find and apply for Maharashtra government schemes in your language",
+      hi: "महाराष्ट्र सरकार की योजनाओं को अपनी भाषा में खोजें और आवेदन करें",
+      mr: "महाराष्ट्र सरकारच्या योजना तुमच्या भाषेत शोधा आणि अर्ज करा",
     },
-    searchPlaceholder: { 
-      en: 'Search for schemes...', 
-      hi: 'योजनाएं खोजें...', 
-      mr: 'योजना शोधा...' 
+    searchPlaceholder: {
+      en: "Search for schemes...",
+      hi: "योजनाएं खोजें...",
+      mr: "योजना शोधा...",
     },
-    exploreSchemes: { 
-      en: 'Explore Schemes', 
-      hi: 'योजनाएं देखें', 
-      mr: 'योजना पहा' 
+    exploreSchemes: {
+      en: "Explore Schemes",
+      hi: "योजनाएं देखें",
+      mr: "योजना पहा",
     },
-    askAssistant: { 
-      en: 'Ask Assistant', 
-      hi: 'सहायक से पूछें', 
-      mr: 'सहाय्यकाला विचारा' 
+    askAssistant: {
+      en: "Ask Assistant",
+      hi: "सहायक से पूछें",
+      mr: "सहाय्यकाला विचारा",
     },
     stats: {
-      schemes: { en: '50+ Schemes', hi: '50+ योजनाएं', mr: '50+ योजना' },
-      citizens: { en: '1Cr+ Citizens', hi: '1 करोड़+ नागरिक', mr: '1 कोटी+ नागरिक' },
-      languages: { en: '3 Languages', hi: '3 भाषाएं', mr: '3 भाषा' },
-    }
+      schemes: { en: "50+ Schemes", hi: "50+ योजनाएं", mr: "50+ योजना" },
+      citizens: {
+        en: "1Cr+ Citizens",
+        hi: "1 करोड़+ नागरिक",
+        mr: "1 कोटी+ नागरिक",
+      },
+      languages: { en: "3 Languages", hi: "3 भाषाएं", mr: "3 भाषा" },
+    },
   };
 
   const handleSearch = () => {
     onSearch(searchQuery);
-    const schemesSection = document.getElementById('schemes');
-    schemesSection?.scrollIntoView({ behavior: 'smooth' });
+    const schemesSection = document.getElementById("schemes");
+    schemesSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -63,8 +67,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
       <div className="container relative z-10 py-16 md:py-24">
         <div className="mx-auto max-w-4xl text-center">
           {/* Emblem/Logo */}
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-white/10 p-4 backdrop-blur-sm">
-            <span className="text-5xl md:text-6xl">🏛️</span>
+          <div className="mb-8 inline-flex items-center justify-center p-5 backdrop-blur-sm">
+            <img
+              src="/public/jslogo.png"
+              alt="JanSeva Logo"
+              className="h-24 w-24 md:h-32 md:w-32 object-contain"
+            />
           </div>
 
           {/* Title */}
@@ -86,13 +94,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
                 placeholder={t(translations.searchPlaceholder)}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                 className="h-14 border-0 bg-transparent pl-12 text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 text-lg"
               />
             </div>
-            <Button 
-              variant="hero" 
-              size="lg" 
+            <Button
+              variant="hero"
+              size="lg"
               onClick={handleSearch}
               className="h-14 px-8"
             >
@@ -106,14 +114,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSearch }) => {
               variant="outline"
               size="lg"
               className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-              onClick={() => document.getElementById('schemes')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() =>
+                document
+                  .getElementById("schemes")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               {t(translations.exploreSchemes)}
             </Button>
             <Button
               variant="hero"
               size="lg"
-              onClick={() => document.getElementById('ask')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() =>
+                document
+                  .getElementById("ask")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               <Mic className="h-5 w-5" />
               {t(translations.askAssistant)}

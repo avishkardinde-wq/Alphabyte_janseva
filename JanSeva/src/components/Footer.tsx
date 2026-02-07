@@ -14,12 +14,8 @@ export const Footer: React.FC = () => {
       en: 'This platform simplifies information. Please verify details on official websites before applying.', 
       hi: 'यह प्लेटफॉर्म जानकारी को सरल बनाता है। आवेदन करने से पहले कृपया आधिकारिक वेबसाइटों पर विवरण सत्यापित करें।', 
       mr: 'हे व्यासपीठ माहिती सोपी करते. अर्ज करण्यापूर्वी कृपया अधिकृत वेबसाइटवर तपशील पडताळा.' 
-    },
-    madeWith: { 
-      en: 'Made with ❤️ for Maharashtra Citizens', 
-      hi: 'महाराष्ट्र के नागरिकों के लिए ❤️ से बनाया', 
-      mr: 'महाराष्ट्रातील नागरिकांसाठी ❤️ ने बनवलेले' 
-    },
+    }
+    
   };
 
   return (
@@ -28,7 +24,6 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col items-center gap-4 text-center">
           {/* Trust badge */}
           <div className="flex items-center gap-2 rounded-full bg-secondary/50 px-4 py-2">
-            <span className="text-lg">🏛️</span>
             <span className="text-sm font-medium text-secondary-foreground">
               {t(translations.dataSource)}
             </span>
@@ -36,17 +31,12 @@ export const Footer: React.FC = () => {
 
           {/* Disclaimer */}
           <p className="max-w-xl text-sm text-muted-foreground">
-            ⚠️ {t(translations.disclaimer)}
-          </p>
-
-          {/* Made with love */}
-          <p className="pt-4 text-sm font-medium text-foreground">
-            {t(translations.madeWith)}
+             {t(translations.disclaimer)}
           </p>
 
           {/* Copyright */}
           <p className="text-xs text-muted-foreground">
-            © 2024 JanSeva. All rights reserved.
+            © 2026 JanSeva. All rights reserved.
           </p>
         </div>
       </div>

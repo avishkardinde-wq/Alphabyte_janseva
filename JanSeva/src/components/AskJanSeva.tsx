@@ -234,42 +234,51 @@ export const AskJanSeva: React.FC = () => {
 
     recognition.start();
   };
+const [isSpeaking, setIsSpeaking] = useState(false);
 
   const speakMessage = (text: string) => {
-    if (!("speechSynthesis" in window)) return;
+  if (!("speechSynthesis" in window)) return;
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
+  // 🔁 If already speaking → STOP
+  if (isSpeaking) {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+    return;
+  }
 
-    let selectedVoice: SpeechSynthesisVoice | undefined;
+  // ▶️ Otherwise → START speaking
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voices = window.speechSynthesis.getVoices();
 
-    if (language === "mr") {
-      // Try Marathi voice first
-      selectedVoice = voices.find((v) => v.lang === "mr-IN");
+  let selectedVoice: SpeechSynthesisVoice | undefined;
 
-      // 🔁 Fallback to Hindi (most browsers support this)
-      if (!selectedVoice) {
-        selectedVoice = voices.find((v) => v.lang === "hi-IN");
-      }
+  if (language === "mr") {
+    selectedVoice =
+      voices.find((v) => v.lang === "mr-IN") ||
+      voices.find((v) => v.lang === "hi-IN");
+    utterance.lang = selectedVoice?.lang || "hi-IN";
+  } else if (language === "hi") {
+    selectedVoice = voices.find((v) => v.lang === "hi-IN");
+    utterance.lang = "hi-IN";
+  } else {
+    selectedVoice = voices.find((v) => v.lang === "en-IN");
+    utterance.lang = "en-IN";
+  }
 
-      utterance.lang = selectedVoice?.lang || "hi-IN";
-    } else if (language === "hi") {
-      selectedVoice = voices.find((v) => v.lang === "hi-IN");
-      utterance.lang = "hi-IN";
-    } else {
-      selectedVoice = voices.find((v) => v.lang === "en-IN");
-      utterance.lang = "en-IN";
-    }
+  if (selectedVoice) {
+    utterance.voice = selectedVoice;
+  }
 
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
-    }
+  utterance.rate = 0.85;
+  utterance.pitch = 1;
 
-    utterance.rate = 0.85;
-    utterance.pitch = 1;
+  // 🎯 Track start & end
+  utterance.onstart = () => setIsSpeaking(true);
+  utterance.onend = () => setIsSpeaking(false);
+  utterance.onerror = () => setIsSpeaking(false);
 
-    window.speechSynthesis.speak(utterance);
-  };
+  window.speechSynthesis.speak(utterance);
+};
 
   return (
     <Card className="mx-auto max-w-2xl shadow-elevated">
